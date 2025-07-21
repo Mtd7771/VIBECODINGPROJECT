@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 20px;
+}
+
+.pricing-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.pricing {
+  width: 300px;
+  background-color: #fff;
+  box-shadow: 0 0 10px #ccc;
+  padding: 20px;
+  text-align: left;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.pricing:hover {
+  transform: translateY(-5px);
+}
+
+.title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.price {
+  font-size: 18px;
+  color: green;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.features {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 20px;
+}
+
+.features li {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+  position: relative;
+  padding-left: 20px;
+}
+
+.features li:before {
+  content: "✓";
+  color: green;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+.features li:last-child {
+  border-bottom: none;
+}
+
+.btn {
+  background: blue;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background: darkblue;
+}
+
+.btn.premium {
+  background: #ff6b35;
+}
+
+.btn.premium:hover {
+  background: #e55a2b;
+}
+
+.btn.enterprise {
+  background: #7b68ee;
+}
+
+.btn.enterprise:hover {
+  background: #6a5acd;
+}
+
+.pricing.featured {
+  border: 2px solid #ff6b35;
+  position: relative;
+}
+
+.pricing.featured:before {
+  content: "Most Popular";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ff6b35;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: bold;
+}
+</style>
+</head>
+<body>
+
+<div class="pricing-container" id="pricing-container">
+  <!-- Cards will be dynamically generated here -->
+</div>
+
+<script>
+// Reusable Card Component
+class PricingCard {
+  constructor(title, price, features, buttonText = "Start Trial", buttonClass = "", isFeatured = false) {
+    this.title = title;
+    this.price = price;
+    this.features = features;
+    this.buttonText = buttonText;
+    this.buttonClass = buttonClass;
+    this.isFeatured = isFeatured;
+  }
+
+  render() {
+    const featuredClass = this.isFeatured ? " featured" : "";
+    const buttonClasses = `btn ${this.buttonClass}`.trim();
+    
+    const featuresHTML = this.features
+      .map(feature => `<li>${feature}</li>`)
+      .join('');
+
+    return `
+      <div class="pricing${featuredClass}">
+        <h2 class="title">${this.title}</h2>
+        <p class="price">${this.price}</p>
+        <ul class="features">
+          ${featuresHTML}
+        </ul>
+        <button class="${buttonClasses}" onclick="handlePlanSelection('${this.title}')">${this.buttonText}</button>
+      </div>
+    `;
+  }
+}
+
+// Function to create and render multiple cards
+function renderPricingCards(cards, containerId) {
+  const container = document.getElementById(containerId);
+  const cardsHTML = cards.map(card => card.render()).join('');
+  container.innerHTML = cardsHTML;
+}
+
+// Event handler for plan selection
+function handlePlanSelection(planName) {
+  alert(`You selected the ${planName} plan!`);
+  // Here you could redirect to a signup page, open a modal, etc.
+}
+
+// Sample data - easily customizable
+const pricingPlans = [
+  new PricingCard(
+    "Basic Plan",
+    "$9.99 /month",
+    ["1 GB Storage", "Basic Support", "All Core Features"],
+    "Start Trial"
+  ),
+  
+  new PricingCard(
+    "Premium Plan",
+    "$19.99 /month",
+    ["10 GB Storage", "Priority Support", "All Core Features", "Advanced Analytics", "Custom Integrations"],
+    "Choose Premium",
+    "premium",
+    true // This is the featured plan
+  ),
+  
+  new PricingCard(
+    "Enterprise Plan",
+    "$49.99 /month",
+    ["Unlimited Storage", "24/7 Dedicated Support", "All Features", "Advanced Analytics", "Custom Integrations", "API Access", "White Label Options"],
+    "Contact Sales",
+    "enterprise"
+  )
+];
+
+// Render the cards when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+  renderPricingCards(pricingPlans, 'pricing-container');
+});
+
+// Utility function to add a new card dynamically
+function addPricingCard(title, price, features, buttonText, buttonClass, isFeatured) {
+  const newCard = new PricingCard(title, price, features, buttonText, buttonClass, isFeatured);
+  pricingPlans.push(newCard);
+  renderPricingCards(pricingPlans, 'pricing-container');
+}
+
+// Example of how to add a card dynamically (uncomment to test)
+// setTimeout(() => {
+//   addPricingCard(
+//     "Student Plan",
+//     "$4.99 /month",
+//     ["500 MB Storage", "Email Support", "Basic Features"],
+//     "Get Student Discount",
+//     "",
+//     false
+//   );
+// }, 3000);
+</script>
+
+</body>
+</html>
