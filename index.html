@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moussa Thiam Diaw – Frontend Developer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .animate-fade-in {
+      animation: fadeIn 1s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center bg-gray-100 relative overflow-hidden">
+
+  <!-- Background gradient -->
+  <div class="absolute inset-0 bg-gradient-to-br from-purple-100 via-white to-blue-100"></div>
+
+  <!-- Animated background elements -->
+  <div class="absolute top-20 left-20 w-32 h-32 bg-purple-200 rounded-full blur-xl animate-pulse"></div>
+  <div class="absolute bottom-20 right-20 w-48 h-48 bg-blue-200 rounded-full blur-xl animate-pulse delay-700"></div>
+
+  <div class="text-center max-w-4xl mx-auto px-6 relative z-10">
+    <h1 class="text-6xl md:text-8xl font-bold bg-gradient-to-r from-purple-500 via-blue-500 to-purple-500 bg-clip-text text-transparent mb-6 animate-fade-in tracking-tight">
+      Moussa Thiam Diaw
+    </h1>
+    <p class="text-2xl md:text-3xl text-gray-600 mb-12 animate-fade-in font-light tracking-wide">
+      Passionate Frontend Developer from Senegal
+    </p>
+    <a href="#projects" class="text-white bg-gradient-to-r from-purple-500 to-blue-500 px-8 py-4 rounded-full shadow-2xl text-lg animate-fade-in hover:scale-105 transition-transform">
+      View My Projects
+    </a>
+  </div>
+
+</body>
+</html>
